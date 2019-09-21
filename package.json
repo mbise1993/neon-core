@@ -11,10 +11,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build:dev": "yarn clean && webpack --mode development",
-    "build:prod": "yarn clean&& webpack --mode production",
+    "build:dev": "npm run clean && webpack --mode development",
+    "build:prod": "npm run clean&& webpack --mode production",
     "test": "jest --watch",
-    "prepublish": "yarn build:prod"
+    "prepublish": "npm run build:prod"
   },
   "dependencies": {
     "lodash": "^4.17.15",
