@@ -7,12 +7,14 @@
     "url": "https://github.com/mbise1993"
   },
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "npm run clean && tsc",
-    "test": "jest --watch",
-    "prepublish": "npm run build"
+    "build:neon": "tsc --outDir dist",
+    "build:test-utils": "tsc --project tsconfig.test-utils.json --outDir dist",
+    "build": "npm run clean && npm run build:neon && npm run build:test-utils",
+    "test": "jest --watch"
   },
   "dependencies": {
     "lodash": "^4.17.15",
@@ -26,6 +28,7 @@
     "@types/uuid": "^3.4.5",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
+    "copyfiles": "^2.1.1",
     "eslint": "^6.2.1",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",

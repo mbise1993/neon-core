@@ -1,3 +1,3 @@
-import { setNeonTestConfig } from './test-utilities';
+import { setNeonTestConfig } from './test-utils';
 
 setNeonTestConfig({ mockFn: jest.fn });

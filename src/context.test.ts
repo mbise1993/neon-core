@@ -1,4 +1,4 @@
-import { mockCommand, mockCommandHooks, mockStateHooks } from './test-utilities';
+import { mockCommand, mockCommandHooks, mockStateHooks } from './test-utils';
 import { NeonContext } from './context';
 
 describe('Context', () => {

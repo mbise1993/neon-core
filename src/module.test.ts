@@ -1,4 +1,4 @@
-import { mockContext, mockCommand, mockCommandHooks, mockModuleHooks } from './test-utilities';
+import { mockContext, mockCommand, mockCommandHooks, mockModuleHooks } from './test-utils';
 import { AbstractModule } from './module';
 
 interface State {

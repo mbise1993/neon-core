@@ -1,7 +1,7 @@
 import { History } from './history';
 import { Command } from './command';
 import { NeonContext } from './context';
-import { mockCommand } from './test-utilities';
+import { mockCommand } from './test-utils';
 
 interface State {
   value: number;

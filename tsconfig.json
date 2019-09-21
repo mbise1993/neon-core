@@ -1,21 +1,22 @@
 {
+  "include": ["src/index.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "declaration": true,
-    "lib": ["es2017"],
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "declaration": true,
     "downlevelIteration": true,
-    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "lib": ["es2017"],
+    "listEmittedFiles": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
-    "baseUrl": "src"
-  },
-  "include": ["src"],
-  "exclude": ["src/**/*.test.*", "src/setupTests.ts"]
+    "pretty": true,
+    "removeComments": true,
+    "strict": true,
+    "target": "es5"
+  }
 }

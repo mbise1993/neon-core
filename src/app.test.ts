@@ -1,4 +1,4 @@
-import { mockModule, mockCommand } from './test-utilities';
+import { mockModule, mockCommand } from './test-utils';
 import { NeonApp } from './app';
 
 describe('App', () => {
