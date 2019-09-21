@@ -8,11 +8,13 @@
   },
   "license": "MIT",
   "scripts": {
+    "reinstall": "rimraf ./node_modules && npm install",
     "clean": "rimraf ./dist",
     "build:neon": "tsc",
     "build:test-utils": "tsc --project tsconfig.test-utils.json",
     "build": "npm run clean && npm run build:neon && npm run build:test-utils",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "prepublishOnly": "npm run reinstall && npm run build"
   },
   "dependencies": {
     "lodash": "^4.17.15",
