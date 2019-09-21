@@ -7,12 +7,10 @@
     "url": "https://github.com/mbise1993"
   },
   "license": "MIT",
-  "main": "index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build:neon": "tsc --outDir dist",
-    "build:test-utils": "tsc --project tsconfig.test-utils.json --outDir dist",
+    "build:neon": "tsc",
+    "build:test-utils": "tsc --project tsconfig.test-utils.json",
     "build": "npm run clean && npm run build:neon && npm run build:test-utils",
     "test": "jest --watch"
   },
