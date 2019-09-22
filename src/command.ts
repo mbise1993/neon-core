@@ -1,7 +1,7 @@
 import { Context } from './context';
 import { Selector } from './state';
 
-export interface Command<TState> {
+export interface Command<TState, TArgs = {}> {
   readonly id: string;
   readonly name: string;
   readonly description?: string;
@@ -9,8 +9,10 @@ export interface Command<TState> {
   readonly supportsUndo?: boolean;
   readonly requeryOnChange: Selector<TState, any>[];
   canExecute(context: Context<TState>): boolean;
-  execute(context: Context<TState>): TState;
+  execute(context: Context<TState>, args: TArgs): TState;
 }
+
+export type CommandArgsType<TCommand extends Command<any, any>> = Parameters<TCommand['execute']>[1];
 
 export interface CommandRouter<TArgs> {
   route(command: Command<any>, args: TArgs): void;

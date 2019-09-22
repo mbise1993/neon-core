@@ -24,10 +24,12 @@ describe('Context', () => {
       value: 5,
     }));
 
-    context.execute(command);
+    const args = { foo: 'bar' };
+    context.execute(command, args);
+
     expect(command.canExecute).toHaveBeenCalledTimes(1);
     expect(command.execute).toHaveBeenCalledTimes(1);
-    expect(command.execute).toHaveBeenCalledWith(context);
+    expect(command.execute).toHaveBeenCalledWith(context, args);
     expect(context.state).toEqual({ value: 5 });
   });
 
@@ -37,7 +39,8 @@ describe('Context', () => {
     context.registerHook(hooks);
     const command = mockCommand('command');
 
-    context.execute(command);
+    context.execute(command, {});
+
     expect(hooks.willExecuteImpl).toHaveBeenCalledTimes(1);
     expect(hooks.willExecuteImpl).toHaveBeenCalledWith(context, command);
     expect(hooks.didExecuteImpl).toHaveBeenCalledTimes(1);
@@ -53,7 +56,8 @@ describe('Context', () => {
       value: 5,
     }));
 
-    context.execute(command);
+    context.execute(command, {});
+    
     expect(hooks.willChangeImpl).toHaveBeenCalledTimes(1);
     expect(hooks.willChangeImpl).toHaveBeenCalledWith({ value: 1 }, { value: 5 });
     expect(hooks.didChangeImpl).toHaveBeenCalledTimes(1);

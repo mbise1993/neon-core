@@ -79,10 +79,12 @@ describe('Module', () => {
     const context = mod.createContext();
     mod.attachContext(context);
     mod.activateContext(context);
-    mod.executeCommand(command1);
+
+    const args = { foo: 'bar' };
+    mod.executeCommand(command1, args);
 
     expect(context.execute).toHaveBeenCalledTimes(1);
-    expect(context.execute).toHaveBeenCalledWith(command1);
+    expect(context.execute).toHaveBeenCalledWith(command1, args);
   });
 
   it('can determine if it can handle a key code', () => {
@@ -105,7 +107,7 @@ describe('Module', () => {
     mod.handleKeyCode('a');
 
     expect(context1.execute).toHaveBeenCalledTimes(1);
-    expect(context1.execute).toHaveBeenCalledWith(command1);
+    expect(context1.execute).toHaveBeenCalledWith(command1, {});
   });
 
   it('invokes registered command hooks', () => {
@@ -116,7 +118,9 @@ describe('Module', () => {
     const hooks = mockCommandHooks();
     mod.registerHook(hooks);
 
-    mod.executeCommand(command1);
+    const args = { foo: 'bar' };
+    mod.executeCommand(command1, args);
+
     expect(hooks.willExecuteImpl).toHaveBeenCalledTimes(1);
     expect(hooks.willExecuteImpl).toHaveBeenCalledWith(context, command1);
     expect(hooks.didExecuteImpl).toHaveBeenCalledTimes(1);

@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 
-import { Command, CommandHooks } from './command';
+import { Command, CommandHooks, CommandArgsType } from './command';
 import { StateProvider, StateHooks } from './state';
 import { History } from './history';
 import { Hooks, HooksProvider } from './hooks';
@@ -17,7 +17,7 @@ export interface Context<TState>
   readonly id: string;
   readonly history: History<TState>;
   canExecute(command: Command<TState>): boolean;
-  execute(command: Command<TState>): void;
+  execute(command: Command<TState>, args: CommandArgsType<typeof command>): void;
   registerHook(hook: ContextHooksType<TState>): void;
   removeHook(hook: ContextHooksType<TState>): void;
 }
@@ -50,13 +50,13 @@ export class NeonContext<TState> implements Context<TState> {
     return command.canExecute(this);
   }
 
-  public execute(command: Command<TState>) {
+  public execute(command: Command<TState>, args: CommandArgsType<typeof command>) {
     if (!this.canExecute(command)) {
       throw new Error(`Context '${this.id}' cannot execute command '${command.id}'`);
     }
 
     this._commandHooks.invokeAll('willExecute', [this, command]);
-    const newState = command.execute(this);
+    const newState = command.execute(this, args);
     this._commandHooks.invokeAll('didExecute', [this, command]);
 
     this.setState(newState);

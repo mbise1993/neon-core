@@ -1,6 +1,6 @@
 import { App } from './app';
 import { Context } from './context';
-import { Command, CommandHooks } from './command';
+import { Command, CommandArgsType, CommandHooks } from './command';
 import { StateChangedHook } from './state';
 import { Hooks, HooksProvider } from './hooks';
 
@@ -32,7 +32,7 @@ export interface Module<TState> extends HooksProvider<ModuleHooksType<TState>> {
   detachContext(context: Context<TState>): void;
   activateContext(context: Context<TState>): void;
   canExecuteCommand(command: Command<TState>): boolean;
-  executeCommand(command: Command<TState>): void;
+  executeCommand(command: Command<TState>, args: CommandArgsType<typeof command>): void;
   canHandleKeyCode(keyCode: string): boolean;
   handleKeyCode(keyCode: string): void;
   readonly onWillAttach?: (app: App) => void;
@@ -121,13 +121,13 @@ export abstract class AbstractModule<TState> implements Module<TState> {
     return this.activeContext ? this.activeContext.canExecute(command) : false;
   }
 
-  public executeCommand(command: Command<TState>) {
+  public executeCommand(command: Command<TState>, args: CommandArgsType<typeof command>) {
     if (!this.activeContext) {
       throw new Error(`No active context, cannot execute command`);
     }
 
     this._commandHooks.invokeAll('willExecute', [this.activeContext, command]);
-    this.activeContext.execute(command);
+    this.activeContext.execute(command, args);
     this._commandHooks.invokeAll('didExecute', [this.activeContext, command]);
   }
 
@@ -144,7 +144,7 @@ export abstract class AbstractModule<TState> implements Module<TState> {
 
     const command = this._commands[commandId];
     if (this.canExecuteCommand(command)) {
-      this.executeCommand(command);
+      this.executeCommand(command, {});
     }
   }
 
