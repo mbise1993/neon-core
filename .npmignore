@@ -1,5 +1,5 @@
 *
-!dist/*
+!dist/**/*
 !index.d.ts
 !index.js
 !test-utils.d.ts
