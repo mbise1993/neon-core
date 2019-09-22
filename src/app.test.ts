@@ -47,13 +47,4 @@ describe('App', () => {
     const provider = app.getCommandProvider('command1');
     expect(provider.id).toMatch('module1');
   });
-
-  it('can execute command', () => {
-    const app = new NeonApp('test');
-    const module1 = mockModule('module1', [mockCommand('command1')]);
-    app.attachModule(module1);
-
-    app.executeCommandById('command1');
-    expect(module1.executeCommand).toHaveBeenCalledTimes(1);
-  });
 });

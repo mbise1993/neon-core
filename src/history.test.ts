@@ -21,7 +21,7 @@ describe(History.name, () => {
     const context = new NeonContext('test', { value: 1 });
     const history = new History(context, 3);
     context.registerHook(history);
-    context.execute(incrementCommand);
+    context.execute(incrementCommand, {});
 
     expect(history.hasPastFrames()).toBeTruthy();
   });
@@ -30,7 +30,7 @@ describe(History.name, () => {
     const context = new NeonContext('test', { value: 1 });
     const history = new History(context, 5);
     context.registerHook(history);
-    context.execute(mockCommand('no-undo'));
+    context.execute(mockCommand('no-undo'), {});
 
     expect(history.hasPastFrames()).toBeFalsy();
   });
@@ -39,8 +39,8 @@ describe(History.name, () => {
     const context = new NeonContext('test', { value: 1 });
     const history = new History(context, 5);
     context.registerHook(history);
-    context.execute(incrementCommand);
-    context.execute(incrementCommand);
+    context.execute(incrementCommand, {});
+    context.execute(incrementCommand, {});
 
     expect(history.goBack(1)).toEqual({ value: 2 });
     expect(history.goBack(1)).toEqual({ value: 1 });
@@ -50,8 +50,8 @@ describe(History.name, () => {
     const context = new NeonContext('test', { value: 1 });
     const history = new History(context, 5);
     context.registerHook(history);
-    context.execute(incrementCommand);
-    context.execute(incrementCommand);
+    context.execute(incrementCommand, {});
+    context.execute(incrementCommand, {});
 
     history.goBack(1);
     expect(history.goForward(1)).toEqual({ value: 3 });

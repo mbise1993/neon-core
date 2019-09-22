@@ -8,7 +8,6 @@ export interface App {
   attachModule(module: Module<any>): void;
   detachModule(module: Module<any>): void;
   getCommandProvider(commandId: string): Module<any>;
-  executeCommandById(commandId: string): void;
 }
 
 export interface ProvidedCommand {
@@ -72,14 +71,5 @@ export class NeonApp implements App {
     }
 
     return provider.module;
-  }
-
-  public executeCommandById(commandId: string) {
-    const provided = this._providedCommands[commandId];
-    if (!provided) {
-      throw new Error(`Command with ID '${commandId}' not provided by any attached modules`);
-    }
-
-    provided.module.executeCommand(provided.command);
   }
 }
